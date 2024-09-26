@@ -32,7 +32,7 @@ Context 在某些情况下非常有用，但也很有限，需要注意的是过
 
 试想，如果我们在一个 PC 页面上的某个部分看到一段文字，我们希望追溯这段文字的数据来源，它的来源可能性很多。
 
-我们打开浏览器 network 窗口，发现调用了五六七八的接口，接口名称规范，还好（当然前提还得是你理解相关业务）；
+我们打开浏览器 network 窗口，发现调用了五六七八的接口，接口名称规范还好（当然前提还得是你理解相关业务）；
 
 如若不然，你需要不停的点点点，一层层定位数据，最后发现来自一个 context，我们点击进入其引用，发现只是：
 
@@ -44,8 +44,8 @@ export const useXxxContext = () => useContext(xxxContext)
 
 ```ts
 export const xxxContext = {
-  state1: xx,
-  state2: xx
+  state1: null,
+  state2: null
   ...
 }
 ```
