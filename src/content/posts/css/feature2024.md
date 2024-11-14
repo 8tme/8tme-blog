@@ -1,9 +1,9 @@
 ---
-title:
-date: 2024-07-02
-summary:
-category:
-tags: []
+title: CSS 新特性
+date: 2024-11-14
+summary: CSS 新特性
+category: css
+tags: [css]
 ---
 
 ### place-items
