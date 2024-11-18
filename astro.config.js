@@ -12,17 +12,10 @@ import { rehypeHeadingIds } from '@astrojs/markdown-remark'
 import { site } from './src/config.json'
 
 // https://astro.build/config
-export default defineConfig(({ mode }) => ({
+export default defineConfig({
   site: site.url,
-  base: mode === 'production' ? '/8tem-blog' : '',
+  base: import.meta.env.PROD ? '/8tem-blog' : '',
   integrations: [tailwind(), react(), sitemap()],
-  vite: {
-    resolve: {
-      alias: {
-        '@': '/src',
-      },
-    },
-  },
   markdown: {
     syntaxHighlight: false,
     smartypants: false,
@@ -37,4 +30,4 @@ export default defineConfig(({ mode }) => ({
     ],
     remarkRehype: { footnoteLabel: '参考', footnoteBackLabel: '返回正文' },
   },
-}))
+})
