@@ -15,6 +15,13 @@ import { site } from './src/config.json'
 export default defineConfig({
   site: site.url,
   integrations: [tailwind(), react(), sitemap()],
+  vite: {
+    resolve: {
+      alias: {
+        '@': '/src',
+      },
+    },
+  },
   markdown: {
     syntaxHighlight: false,
     smartypants: false,
