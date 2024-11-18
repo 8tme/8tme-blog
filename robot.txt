@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Disallow: /_astro/
+Disallow: /fonts/
+
+Sitemap: https://8tme.github.io/sitemap-index.xml
