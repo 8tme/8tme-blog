@@ -14,7 +14,7 @@ import { site } from './src/config.json'
 // https://astro.build/config
 export default defineConfig({
   site: site.url,
-  base: import.meta.env.PROD ? '/8tem-blog' : '',
+  base: import.meta.env.PROD ? '/8tme-blog' : '',
   integrations: [tailwind(), react(), sitemap()],
   markdown: {
     syntaxHighlight: false,
