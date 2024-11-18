@@ -9,7 +9,7 @@ interface Props {
 
 const { title = site.title, description = site.description, image } = Astro.props
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site)
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || site.url)
 // 自动为标题添加后缀
 const suffixTitle = title === site.title ? title : `${title} - ${site.title}`
 ---
