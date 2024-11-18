@@ -1,7 +1,7 @@
 ---
 title: typescript tips
 date: 2024-10-11
-summary:
+summary: typescript 小技巧
 category: typescript
 tags: [typescript]
 ---

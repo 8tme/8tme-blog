@@ -1,3 +1,12 @@
+---
+title: RxJS
+date: 2024-10-18
+summary: RxJS
+category: 学习
+tags: [js, rxjs]
+---
+
+### 介绍
 RxJS 解决了 JavaScript 异步编程中的多个问题，主要包括：
 
 复杂的异步流管理：在传统的 JavaScript 中，异步操作（如事件、定时器、Ajax 请求等）通常使用回调函数处理，这可能导致所谓的“回调地狱”。RxJS 通过 Observables 和操作符提供了一种更清晰、更声明式的方式来处理异步数据流。
@@ -57,3 +66,4 @@ RxJS 的 Observable 可以发出错误和完成通知，而迭代器通常只处
 使用迭代器，你将受限于同步操作，且难以处理复杂的异步逻辑。
 使用 RxJS，你可以创建一个从用户输入事件派生的 Observable，使用诸如 debounceTime、distinctUntilChanged 和 switchMap 等操作符来处理用户输入，获取搜索建议，并在用户选择建议时进一步处理。
 总之，RxJS 的设计目标是处理复杂的异步数据流，而 Promise 和迭代器更适合处理更简单的异步操作或同步序列。RxJS 的强大之处在于其提供了一系列工具来构建和操作数据流，特别是在需要处理多个异步源或连续数据时。
+

@@ -8,8 +8,7 @@ import MarkdownWrapper from '@/components/MarkdownWrapper.astro'
 import { ReadingProgress } from '@/components/post/ReadingProgress'
 
 const md = await getEntry('spec', 'about')
-
-const { headings, Content } = await md.render()
+const { headings, Content } = await md.render?.()
 ---
 
 <MarkdownLayout
