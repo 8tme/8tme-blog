@@ -11,7 +11,9 @@
     "format": "prettier --write .",
     "new-friend": "node scripts/new-friend.js",
     "new-post": "node scripts/new-post.js",
-    "new-project": "node scripts/new-project.js"
+    "new-project": "node scripts/new-project.js",
+    "predeploy": "pnpm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@astrojs/check": "^0.5.10",
@@ -34,6 +36,7 @@
     "chroma-js": "^2.4.2",
     "clsx": "^2.1.0",
     "framer-motion": "^11.1.5",
+    "gh-pages": "^6.2.0",
     "hastscript": "^9.0.0",
     "jotai": "^2.8.0",
     "lodash-es": "^4.17.21",
