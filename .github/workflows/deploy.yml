@@ -2,28 +2,35 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [master]
+    branches: [ master ]
+  workflow_dispatch:
+
+# 允许 job 克隆 repo 并创建一个 page deployment
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - name: Checkout your repository using git
+        uses: actions/checkout@v4
+      - name: Install, build, and upload your site
+        uses: withastro/action@v3
         with:
-          node-version: '20' # 或更高版本
+          path: .
+          node-version: 20
+          package-manager: pnpm@latest
 
-      - name: Install Dependencies
-        run: npm install # 或 yarn install
-
-      - name: Build
-        run: npm run build # 或 yarn build
-
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
