@@ -12,8 +12,9 @@ import { rehypeHeadingIds } from '@astrojs/markdown-remark'
 import { site } from './src/config.json'
 
 // https://astro.build/config
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   site: site.url,
+  base: mode === 'production' ? '/8tem-blog' : '',
   integrations: [tailwind(), react(), sitemap()],
   vite: {
     resolve: {
@@ -36,4 +37,4 @@ export default defineConfig({
     ],
     remarkRehype: { footnoteLabel: '参考', footnoteBackLabel: '返回正文' },
   },
-})
+}))
