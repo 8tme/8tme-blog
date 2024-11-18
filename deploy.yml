@@ -18,6 +18,14 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Cache pnpm dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
       - name: Install pnpm
         run: npm install -g pnpm
 
@@ -27,9 +35,13 @@ jobs:
       - name: Build Blog
         run: pnpm run build
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          publish_branch: gh-pages
+      - name: Deploy to GitHub Pages (docs)
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout master
+          mkdir -p docs
+          cp -r dist/* docs/
+          git add docs
+          git commit -m "Deploy to GitHub Pages [skip ci]" || echo "No changes to commit"
+          git push origin master
