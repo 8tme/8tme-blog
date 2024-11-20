@@ -87,7 +87,7 @@ function HeaderMenu({ isBgShow }: { isBgShow: boolean }) {
         {menus.map((menu) => (
           <HeaderMenuItem
             key={menu.name}
-            href={menu.link}
+            href={`${import.meta.env.BASE_URL}${menu.link.slice(1)}`}
             title={menu.name}
             icon={menu.icon}
             isActive={pathName === menu.link}

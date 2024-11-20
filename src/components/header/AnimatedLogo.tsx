@@ -23,7 +23,7 @@ export function AnimatedLogo() {
 
 function Logo() {
   return (
-    <a className="block" href="/8tme-blog" title="Nav to home">
+    <a className="block" href={import.meta.env.BASE_URL} title="Nav to home">
       <img
         className="size-[40px] select-none object-cover rounded-2xl"
         src={author.avatar}

@@ -38,7 +38,7 @@ const { current, prev, next } = Astro.props
 
 const { headings, Content, remarkPluginFrontmatter } = await current.render()
 
-const mdSlug = `/posts/${current.slug}`
+const mdSlug = `${import.meta.env.BASE_URL}/posts/${current.slug}`
 
 const mdDescription = concat(current.data.category || '', current.data.tags.join(', '))
 

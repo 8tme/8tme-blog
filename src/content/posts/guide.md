@@ -80,7 +80,7 @@ pnpm preview
   "menus": [
     {
       "name": "首页",
-      "link": "/8tme-blog",
+      "link": "/",
       "icon": "icon-pantone"
     }
   ],
