@@ -50,12 +50,12 @@
   "menus": [
     {
       "name": "首页",
-      "link": "/",
+      "link": "/8tme-blog",
       "icon": "icon-pantone"
     },
     {
       "name": "归档",
-      "link": "/archives",
+      "link": "/8tme-blog/archives",
       "icon": "icon-archive"
     }
   ],
