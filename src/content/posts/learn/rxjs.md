@@ -67,3 +67,162 @@ RxJS 的 Observable 可以发出错误和完成通知，而迭代器通常只处
 使用 RxJS，你可以创建一个从用户输入事件派生的 Observable，使用诸如 debounceTime、distinctUntilChanged 和 switchMap 等操作符来处理用户输入，获取搜索建议，并在用户选择建议时进一步处理。
 总之，RxJS 的设计目标是处理复杂的异步数据流，而 Promise 和迭代器更适合处理更简单的异步操作或同步序列。RxJS 的强大之处在于其提供了一系列工具来构建和操作数据流，特别是在需要处理多个异步源或连续数据时。
 
+
+### 基本原理
+
+- 简化版本
+```ts
+class Observable {
+  constructor(subscribe) {
+    if (subscribe) {
+      // 保存订阅函数(生产者)
+      this._subscribe = subscribe;
+    }
+  }
+  
+  subscribe(observer, error, complete) {
+    const unsubscribe = this._subscribe(observer);
+    return unsubscribe
+  }
+  
+  pipe(...operators) {
+    if (operators.length === 0) {
+      return this;
+    }
+    
+    return operators.reduce(
+      (source, operator) => operator(source),
+      this
+    );
+  }
+}
+```
+
+- 完整版本
+```ts
+class Observable {
+  constructor(subscribeFn) {
+    this._subscribe = subscribeFn;
+  }
+  
+  subscribe(observerOrNext, error, complete) {
+    // 标准化观察者对象
+    const observer = typeof observerOrNext === 'function'
+      ? { next: observerOrNext, error, complete }
+      : observerOrNext;
+    
+    // 创建订阅对象
+    const subscription = new Subscription();
+    
+    // 包装观察者，添加自动清理逻辑
+    const safeObserver = {
+      next: value => {
+        if (!subscription.closed) {
+          try {
+            observer.next(value);
+          } catch (err) {
+            subscription.unsubscribe(); // 出错时自动取消订阅
+            throw err;
+          }
+        }
+      },
+      error: err => {
+        if (!subscription.closed) {
+          subscription.closed = true;
+          try {
+            observer.error(err);
+          } finally {
+            subscription.unsubscribe(); // 错误时自动取消订阅
+          }
+        }
+      },
+      complete: () => {
+        if (!subscription.closed) {
+          subscription.closed = true;
+          try {
+            observer.complete();
+          } finally {
+            subscription.unsubscribe(); // 完成时自动取消订阅
+          }
+        }
+      }
+    };
+    
+    try {
+      // 执行订阅函数
+      const teardown = this._subscribe(safeObserver);
+      
+      // 存储清理函数
+      if (teardown) {
+        subscription.add(teardown);
+      }
+    } catch (err) {
+      safeObserver.error(err);
+    }
+    
+    return subscription;
+  }
+}
+
+class Subscription {
+  constructor() {
+    this.closed = false;
+    this._teardowns = [];
+  }
+  
+  add(teardown) {
+    if (teardown && typeof teardown !== 'function') {
+      if (teardown instanceof Subscription) {
+        // 如果是另一个订阅对象，添加它的 unsubscribe 方法
+        this._teardowns.push(() => teardown.unsubscribe());
+      } else if (typeof teardown.unsubscribe === 'function') {
+        this._teardowns.push(() => teardown.unsubscribe());
+      }
+    } else if (typeof teardown === 'function') {
+      this._teardowns.push(teardown);
+    }
+  }
+  
+  unsubscribe() {
+    if (this.closed) return;
+    
+    this.closed = true;
+    
+    // 执行所有清理函数
+    for (const teardown of this._teardowns) {
+      try {
+        teardown();
+      } catch (err) {
+        console.error('取消订阅时出错:', err);
+      }
+    }
+    
+    this._teardowns = null;
+  }
+}
+```
+
+- 调用
+```ts
+
+// 创建一个发出 1, 2, 3 的 Observable
+const simple$ = new Observable(observer => {
+  // 这里是数据生产逻辑
+  observer.next(1);
+  observer.next(2);
+  observer.next(3);
+  observer.complete();
+  
+  // 返回清理函数
+  return () => {
+    console.log('已取消订阅');
+  };
+});
+
+// 订阅 Observable
+const subscription = simple$.subscribe({
+  next: value => console.log('收到值:', value),
+  error: err => console.error('发生错误:', err),
+  complete: () => console.log('完成')
+});
+```
