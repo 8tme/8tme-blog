@@ -3,7 +3,7 @@ title: React Lottie
 date: 2024-11-20
 summary: React Lottie
 category: React
-tags: [react, lottie]
+tags: [react, lottie, animation]
 ---
 
 ### 使用 React Lottie
