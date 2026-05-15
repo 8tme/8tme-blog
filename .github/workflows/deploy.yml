@@ -5,6 +5,10 @@ on:
     branches: [ master ]
   workflow_dispatch:
 
+env:
+  # 提前切到 Node24 运行 JavaScript Actions，规避 Node20 弃用风险
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 # 允许 job 克隆 repo 并创建一个 page deployment
 permissions:
   contents: read
@@ -15,14 +19,30 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout your repository using git
-        uses: actions/checkout@v4
-      - name: Install, build, and upload your site
-        uses: withastro/action@v3
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
         with:
-          path: .
-          node-version: v20.19.6
-          package-manager: pnpm@latest
+          node-version: 22
+          cache: pnpm
+
+      - name: Setup pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@latest --activate
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build site
+        run: pnpm build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
 
   deploy:
     needs: build
