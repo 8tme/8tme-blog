@@ -53,6 +53,10 @@
     "prettier-plugin-astro": "^0.13.0"
   },
   "pnpm": {
+    "allowBuilds": {
+      "esbuild": true,
+      "sharp": true
+    },
     "onlyBuiltDependencies": [
       "esbuild",
       "sharp"
