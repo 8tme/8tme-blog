@@ -3,6 +3,8 @@ import rss from '@astrojs/rss'
 import { site } from '@/config.json'
 import { getSortedPosts } from '@/utils/content'
 
+const withBase = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}/${path.replace(/^\/+/, '')}`
+
 export async function GET(context: APIContext) {
   const sortedPosts = await getSortedPosts()
 
@@ -11,7 +13,7 @@ export async function GET(context: APIContext) {
     description: site.description,
     site: context.site!,
     items: sortedPosts.map((post) => ({
-      link: `${import.meta.env.BASE_URL}/posts/${post.slug}`,
+      link: withBase(`/posts/${post.slug}`),
       title: post.data.title,
       pubDate: post.data.date,
       description: post.data.summary,

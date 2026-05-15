@@ -47,6 +47,7 @@ const config: Config = {
         'bg-color': 'background-color',
       },
       zIndex: {
+        '-1': '-1',
         '1': '1',
       },
     },

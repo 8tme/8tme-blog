@@ -1,3 +1,8 @@
+---
+title: Nginx 高频常用命令（Ubuntu）
+date: 2026-05-15
+---
+
 # Nginx 高频常用命令（Ubuntu）
 
 只整理日常最常用的命令，覆盖：服务管理、配置生效、日志排查、站点启停。
@@ -82,7 +87,7 @@ sudo lsof -i :443
 
 
 ## 6) 简单的配置
-```conf
+```nginx
 server {
     listen 80 default_server;
     server_name _;

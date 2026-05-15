@@ -10,9 +10,15 @@ interface Props {
 const { entry } = Astro.props
 
 const { remarkPluginFrontmatter } = await entry.render()
+const withBase = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}/${path.replace(/^\/+/, '')}`
 ---
 
-<a class="block relative py-8 focus-visible:outline-0" href={`${import.meta.env.BASE_URL}/posts/${entry.slug}`}>
+<a class="group block relative py-8 focus-visible:outline-0" href={withBase(`/posts/${entry.slug}`)}>
+  <!-- JS 未加载时的兜底 hover 背景，避免交互感完全消失 -->
+  <div
+    aria-hidden="true"
+    class="absolute inset-y-4 -inset-x-4 -z-1 bg-accent/10 rounded-lg opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100"
+  />
   <PostCardHoverOverlay client:only="react" />
   <h2 class="relative text-2xl font-bold">
     {entry.data.title}

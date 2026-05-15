@@ -8,6 +8,8 @@ interface Props {
 }
 
 const { tags, category, class: className } = Astro.props
+// 统一拼接部署 base，避免 GitHub Pages 子路径下链接 404
+const withBase = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}/${path.replace(/^\/+/, '')}`
 ---
 
 <div class="flex flex-wrap gap-2 text-sm text-base/60" class:list={[className]}>
@@ -17,7 +19,7 @@ const { tags, category, class: className } = Astro.props
         <i class="iconfont icon-folder" />
         <a
           class="hover:text-accent hover:underline underline-offset-2 decoration-dashed"
-          href={`/category/${slugify(category)}`}
+          href={withBase(`/categories/${slugify(category)}`)}
         >
           {category}
         </a>
@@ -33,7 +35,7 @@ const { tags, category, class: className } = Astro.props
             {index > 0 && <span>, </span>}
             <a
               class="hover:text-accent hover:underline underline-offset-2 decoration-dashed"
-              href={`/tags/${slugify(tag)}`}
+              href={withBase(`/tags/${slugify(tag)}`)}
             >
               {tag}
             </a>

@@ -34,6 +34,12 @@ const menuItemVariants = {
   },
 }
 
+// 统一拼接部署 base，避免 GitHub Pages 子路径下链接 404
+const withBase = (path: string) => {
+  const base = import.meta.env.BASE_URL.replace(/\/$/, '')
+  return `${base}/${path.replace(/^\/+/, '')}`
+}
+
 export function HeaderDrawer({ zIndex = 999 }: { zIndex?: number }) {
   const [isOpen, setIsOpen] = useState(false)
   const overlayZIndex = zIndex - 1
@@ -106,7 +112,11 @@ function DrawerContentImpl() {
     <ul className="mt-8 pb-8 overflow-y-auto overflow-x-hidden min-h-0">
       {menus.map((menu) => (
         <motion.li key={menu.name} variants={menuItemVariants}>
-          <a className="inline-flex p-2 space-x-4" href={menu.link} onClick={dismiss}>
+          <a
+            className="inline-flex p-2 space-x-4"
+            href={menu.link.startsWith('http') ? menu.link : withBase(menu.link)}
+            onClick={dismiss}
+          >
             <i className={clsx('iconfont', menu.icon)}></i>
             <span>{menu.name}</span>
           </a>

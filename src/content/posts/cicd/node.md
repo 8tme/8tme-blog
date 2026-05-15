@@ -1,3 +1,8 @@
+---
+title: Ubuntu 上升级 Node.js 版本
+date: 2026-05-15
+---
+
 # Ubuntu 上升级 Node.js 版本
 
 在 Ubuntu 上升级 Node.js，推荐优先使用 `nvm`（Node Version Manager），因为它支持多版本共存、切换方便、对 CI/CD 也友好。

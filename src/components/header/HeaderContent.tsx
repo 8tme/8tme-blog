@@ -10,6 +10,8 @@ import {
 } from './hooks'
 import { RootPortal } from '@/components/RootPortal'
 
+const withBase = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}/${path.replace(/^\/+/, '')}`
+
 export function HeaderContent() {
   return (
     <>
@@ -87,7 +89,7 @@ function HeaderMenu({ isBgShow }: { isBgShow: boolean }) {
         {menus.map((menu) => (
           <HeaderMenuItem
             key={menu.name}
-            href={`${import.meta.env.BASE_URL}${menu.link}`}
+            href={withBase(menu.link)}
             title={menu.name}
             icon={menu.icon}
             isActive={pathName === menu.link}

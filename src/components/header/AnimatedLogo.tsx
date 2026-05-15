@@ -2,6 +2,9 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useShouldHeaderMetaShow, useIsMobile } from './hooks'
 import { author } from '@/config.json'
 
+const withBase = (path: string) => `${import.meta.env.BASE_URL.replace(/\/$/, '')}/${path.replace(/^\/+/, '')}`
+const avatarSrc = withBase(author.avatar)
+
 export function AnimatedLogo() {
   const isMobile = useIsMobile()
   const shouldHeaderMetaShow = useShouldHeaderMetaShow()
@@ -23,10 +26,10 @@ export function AnimatedLogo() {
 
 function Logo() {
   return (
-    <a className="block" href={`${import.meta.env.BASE_URL}/`} title="Nav to home">
+    <a className="block" href={withBase('/')} title="Nav to home">
       <img
         className="size-[40px] select-none object-cover rounded-2xl"
-        src={author.avatar}
+        src={avatarSrc}
         alt="Site owner avatar"
       />
     </a>

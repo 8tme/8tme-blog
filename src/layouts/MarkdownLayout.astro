@@ -29,7 +29,7 @@ const { title, description, image, mdTitle, mdDescription, mdSlug } = Astro.prop
     transition:persist
   />
 
-  <Header client:only="react" />
+  <Header client:load />
   <main class="relative z-1 pt-16 min-h-main bg-base">
     <HeadGadient />
     <slot />
