@@ -53,6 +53,10 @@
     "prettier-plugin-astro": "^0.13.0"
   },
   "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp"
+    ],
     "overrides": {
       "sitemap": "7.0.0"
     }
