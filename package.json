@@ -48,6 +48,7 @@
   },
   "devDependencies": {
     "@inquirer/prompts": "^5.0.2",
+    "@types/node": "^24.10.1",
     "prettier": "^3.2.5",
     "prettier-plugin-astro": "^0.13.0"
   }
