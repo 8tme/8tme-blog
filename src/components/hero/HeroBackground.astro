@@ -1,0 +1,151 @@
+<div class="pointer-events-none absolute inset-0 -z-1 overflow-hidden" aria-hidden="true">
+  <!-- 顶层发光球：提供 3D 氛围主视觉 -->
+  <div class="hero-bg__orb hero-bg__orb--main"></div>
+  <div class="hero-bg__orb hero-bg__orb--sub"></div>
+
+  <!-- 透视网格：强化空间深度感 -->
+  <div class="hero-bg__grid-wrap">
+    <div class="hero-bg__grid"></div>
+  </div>
+
+  <!-- 浮动方块：模拟轻量 3D 粒子运动 -->
+  <div class="hero-bg__cubes">
+    <span class="hero-bg__cube"></span>
+    <span class="hero-bg__cube"></span>
+    <span class="hero-bg__cube"></span>
+    <span class="hero-bg__cube"></span>
+    <span class="hero-bg__cube"></span>
+  </div>
+</div>
+
+<style>
+  /* 关键动画：光晕缓慢旋转，避免高频闪烁造成视觉疲劳 */
+  @keyframes heroOrbSpin {
+    from {
+      transform: rotate(0deg) scale(1);
+    }
+    to {
+      transform: rotate(360deg) scale(1.08);
+    }
+  }
+
+  /* 关键动画：透视网格纵向平移，营造“向前流动”感 */
+  @keyframes heroGridMove {
+    from {
+      transform: rotateX(70deg) translateY(0);
+    }
+    to {
+      transform: rotateX(70deg) translateY(42px);
+    }
+  }
+
+  /* 关键动画：方块在三维空间中缓慢浮动 */
+  @keyframes heroCubeFloat {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg);
+      opacity: 0.22;
+    }
+    50% {
+      transform: translate3d(0, -18px, 0) rotateX(22deg) rotateY(-22deg);
+      opacity: 0.45;
+    }
+  }
+
+  .hero-bg__orb {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(36px);
+    animation: heroOrbSpin 16s linear infinite;
+  }
+
+  .hero-bg__orb--main {
+    top: 6%;
+    left: -8%;
+    width: 340px;
+    height: 340px;
+    background: radial-gradient(circle, rgb(var(--accent) / 0.28), transparent 70%);
+  }
+
+  .hero-bg__orb--sub {
+    right: -10%;
+    top: 12%;
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, rgb(var(--accent) / 0.18), transparent 72%);
+    animation-direction: reverse;
+    animation-duration: 20s;
+  }
+
+  .hero-bg__grid-wrap {
+    position: absolute;
+    inset: auto 0 -120px 0;
+    height: 320px;
+    perspective: 900px;
+  }
+
+  .hero-bg__grid {
+    width: 100%;
+    height: 100%;
+    transform-origin: top center;
+    background-image:
+      linear-gradient(rgb(var(--accent) / 0.15) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--accent) / 0.15) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: linear-gradient(to bottom, rgb(0 0 0 / 0.85), transparent 88%);
+    animation: heroGridMove 9s linear infinite;
+  }
+
+  .hero-bg__cubes {
+    position: absolute;
+    inset: 0;
+  }
+
+  .hero-bg__cube {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 1px solid rgb(var(--accent) / 0.35);
+    background: rgb(var(--accent) / 0.08);
+    box-shadow: 0 0 16px rgb(var(--accent) / 0.14);
+    animation: heroCubeFloat 6s ease-in-out infinite;
+  }
+
+  .hero-bg__cube:nth-child(1) {
+    top: 16%;
+    left: 14%;
+    animation-delay: 0s;
+  }
+
+  .hero-bg__cube:nth-child(2) {
+    top: 22%;
+    right: 18%;
+    width: 14px;
+    height: 14px;
+    animation-delay: 1.2s;
+  }
+
+  .hero-bg__cube:nth-child(3) {
+    top: 40%;
+    left: 44%;
+    width: 16px;
+    height: 16px;
+    animation-delay: 2.1s;
+  }
+
+  .hero-bg__cube:nth-child(4) {
+    top: 58%;
+    right: 30%;
+    width: 12px;
+    height: 12px;
+    animation-delay: 0.8s;
+  }
+
+  .hero-bg__cube:nth-child(5) {
+    top: 64%;
+    left: 22%;
+    width: 18px;
+    height: 18px;
+    animation-delay: 2.8s;
+  }
+</style>
