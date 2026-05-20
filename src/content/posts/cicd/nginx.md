@@ -1,6 +1,8 @@
 ---
 title: Nginx 高频常用命令（Ubuntu）
 date: 2026-05-15
+category: cicd
+tags: [nginx, cicd]
 ---
 
 # Nginx 高频常用命令（Ubuntu）

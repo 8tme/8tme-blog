@@ -1,6 +1,9 @@
 ---
 title: Ubuntu 上升级 Node.js 版本
 date: 2026-05-15
+
+category: cicd
+tags: [Ubuntu, node, cicd]
 ---
 
 # Ubuntu 上升级 Node.js 版本
