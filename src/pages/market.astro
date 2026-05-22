@@ -1,0 +1,10 @@
+---
+import PageLayout from '@/layouts/PageLayout.astro'
+import { MarketWatchPanel } from '@/components/market/MarketWatchPanel'
+import '@/styles/market-watch.css'
+---
+
+<PageLayout title="行情监控" description="支持本地监控列表、TradingView 图表和实时价格更新">
+  <!-- 行情页面主内容：客户端渲染交互面板 -->
+  <MarketWatchPanel client:load />
+</PageLayout>

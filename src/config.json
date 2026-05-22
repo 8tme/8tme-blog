@@ -14,7 +14,7 @@
     "avatar": "/conan.png"
   },
   "hero": {
-    "name": "Hays",
+    "name": "Sing",
     "bio": "Sing sing's blog.",
     "description": "Clean, Cute, Fast.",
     "socials": [
@@ -57,6 +57,11 @@
       "name": "归档",
       "link": "/archives",
       "icon": "icon-archive"
+    },
+    {
+      "name": "行情",
+      "link": "/market",
+      "icon": "icon-pantone"
     }
   ],
   "posts": {
